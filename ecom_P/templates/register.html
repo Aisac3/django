@@ -1,0 +1,120 @@
+{% extends 'layouts/main.html'%}
+{% load static %}
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    .reg_form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+<div class="reg_form">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    
+    <div id="message" class="hidden"></div>
+</div>
+{% for messages in messages %}
+<h3 style="color: #fc3701;">{{messages}}</h3>
+{% endfor %}
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const registrationForm = document.getElementById("registrationForm");
+        const messageContainer = document.getElementById("message");
+
+        registrationForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                showMessage("Passwords do not match.", "error");
+            } else {
+                showMessage(`Registration successful! Welcome, ${username}.`, "success");
+                registrationForm.reset();
+            }
+        });
+
+        function showMessage(message, messageType) {
+            messageContainer.textContent = message;
+            messageContainer.className = messageType;
+            messageContainer.classList.remove("hidden");
+            setTimeout(function () {
+                messageContainer.classList.add("hidden");
+            }, 5000);
+        }
+    });
+</script> -->
+{% endblock body %}
